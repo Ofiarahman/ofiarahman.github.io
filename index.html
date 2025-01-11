@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        :root {
+            --background-color: #f4f4f4;
+            --text-color: #2c2c2c;
+            --accent-color: #e6dbbd;
+            --odd-section-color: #d6d6d6;
+            --even-section-color: #e8eef1;
+            --subsection-border-color: #012e33;
+            --subsection-background-color: #e6e0d0;
+            --card-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+            --font-family: 'Arial', sans-serif;
+        }
+
+        #about {
+            background-color: #012e33;
+            color: #fbfbfb;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-family);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--background-color);
+            padding: 10px 20px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        header nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: var(--accent-color);
+        }
+
+        section {
+            padding: 100px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+        }
+
+        section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(odd) {
+            background-color: var(--odd-section-color);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--even-section-color);
+        }
+
+        .subsection {
+            margin: 20px auto;
+            text-align: left;
+            padding: 20px 25px;
+            border-radius: 12px;
+            background-color: var(--subsection-background-color);
+            --accent-color: #012e33;
+            box-shadow: var(--card-shadow);
+            max-width: 750px;
+            border-left: 5px solid var(--subsection-border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subsection h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .subsection p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .subsection:hover {
+            transform: scale(1.03);
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 12px, rgba(0, 0, 0, 0.1) 0px 4px 8px;
+        }
+
+        .about-me img {
+            width: 150px;
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            margin: 0 10px;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background-color: var(--background-color);
+        }
+
+        footer a {
+            --accent-color: #080ced;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #003366;
+        }
+
+        #projects {
+    padding: 40px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+#projects h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+        /* Grid Layout */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Project Card */
+.project-card {
+    background-color: #e6dbbd;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    max-width: 300px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Project Image */
+.project-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Project Title */
+.project-card h3 {
+    font-size: 1.2rem;
+    color: #012e33;
+    margin: 10px 15px 5px;
+}
+
+/* Project Description */
+.project-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 15px 10px;
+    line-height: 1.4;
+}
+
+/* Project Link */
+.project-link {
+    display: inline-block;
+    margin: 10px 15px 15px;
+    color: #fff;
+    background-color: #4a90e2;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.project-link:hover {
+    background-color: #357abd;
+    transform: scale(1.05);
+}
+        .publications-button {
+            background-color: #012e33; /* Button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            padding: 10px 20px; /* Button padding */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 1rem; /* Font size */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .publications-button:hover {
+            background-color: #357abd; /* Darker shade on hover */
+            transform: scale(1.05); /* Slightly larger on hover */
+        }
+
+        .publications-button:active {
+            background-color: #285a8e; /* Even darker shade on click */
+            transform: scale(0.98); /* Slightly smaller on click */
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#skills">Skills</a>
+    </nav>
+</header>
+
+<section id="about" class="about-me">
+    <h1>Ofia Rahman Alif</h1>
+    <p>Data Science Student</p>
+    <div class="social-icons">
+        <a href="https://github.com/Ofiarahman" target="_blank">
+            <img src="github.gif" alt="GitHub">
+        </a>
+        <a href="https://www.linkedin.com/in/ofia-rahman-alif-32a6501b9/" target="_blank">
+            <img src="linkedin.gif" alt="LinkedIn">
+        </a>
+        <a href="mailto:ofiarahmanalif@gmail.com" target="_blank">
+            <img src="email.gif" alt="Email">
+        </a>
+    </div>
+</section>
+
+<section id="education">
+    <h2>Education</h2>
+    <div class="subsection">
+        <h3>M.Sc. in Data Science</h3>
+        <p><strong>University of Helsinki, Finland</strong><br>Expected Graduation Year: 2026<br>University Funded Student</p>
+    </div>
+    <div class="subsection">
+        <h3>B.Sc. in Computer Science and Engineering</h3>
+        <p><strong>BRAC University, Bangladesh</strong><br>Graduation Year: 2023<br>GPA: 3.67/4.0</p>
+    </div>
+</section>
+
+<section id="experience">
+    <h2>Experience</h2>
+    <div class="subsection">
+        <h3>Researcher</h3>
+        <p><strong>COMPUTING FOR SUSTAINABILITY AND SOCIAL GOOD LAB</strong><br>2022-Present</p>
+        <p>Research in HCI <br>Published Journal</p>
+    </div>
+    <div class="subsection">
+        <h3>Intern</h3>
+        <p><strong>BRAC</strong><br> 2023-2024</p>
+        <p>BRAC Skill Development Programme<br>Technology Team</p>
+    </div>
+    <div class="subsection">
+        <h3>Junior Executive Human Resources</h3>
+        <p><strong>Robotics Club of BRAC University</strong> <br> 2020-2021</p>
+        <p>HR operations<br>Organizing and volunteering seminars and webinars (Interuniversity Programming Content - TRACTION)</p>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+            <img src="sleep.gif" alt="Project 1 Cover" class="project-image">
+            <h3>Sleep Quality Analysis</h3>
+            <p>This project is about quality of sleep analysis considering some factors related to physical and mental health.</p>
+            <a href="https://github.com/Ofiarahman/Sleep-Quality-Analysis"><button class="project-link">View on GitHub</button></a>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+            <img src="churn.gif" alt="Project 2 Cover" class="project-image">
+            <h3>Churn Prediction</h3>
+            <p>This project leverages machine learning to predict customer churn by analyzing customer data. The goal is to identify customers likely to discontinue services, enabling businesses to take proactive measures to improve customer retention.</p>
+            <a href="https://github.com/Ofiarahman/Churn-Prediction"><button class="project-link">View on GitHub</button></a>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+            <img src="lock.gif" alt="Project 3 Cover" class="project-image">
+            <h3>Innovative Lock System</h3>
+            <p>This is an HCI high fidelity prototype design.</p>
+            <a href="https://github.com/username/ux-analysis"><button class="project-link">View on GitHub</button></a>
+        </div>
+
+        <!-- Add more project cards as needed -->
+    </div>
+</section>
+
+
+
+
+<section id="publications">
+    <h2>Publications</h2>
+    <div class="subsection">
+        <h3>Exploring the Barriers to Feminine Healthcare Access among Marginalized Women in Bangladesh and Facilitating Access through a Voice Bot</h3>
+        <p>Published in: Heliyon<br>Publication Year: 2024<br>Description: The research focuses on the barriers marginalized women in Bangladesh encounter when accessing essential feminine healthcare services and suggests innovative solutions through voice bot technology.</p>
+        <p><a href="https://www.sciencedirect.com/science/article/pii/S2405844024099584?fbclid=IwZXh0bgNhZW0CMTEAAR2ca_l9jPjgdBIOvMWSM4a1-v-zuzFEBoAB1a7kwsBwdYG2KfyHh91FgEs_aem_mogBz9gCSzVHOyrMpZH_fQ">
+            <button class='publications-button'>Read More</button></a></p>
+    </div>
+</section>
+
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="subsection">
+        <ul>
+            <li>Programming: Python, JavaScript, SQL, Java, HTML, PHP, LaTeX</li>
+            <li>Data Analysis: Pandas, NumPy, Matplotlib</li>
+            <li>Machine Learning: scikit-learn, TensorFlow</li>
+            <li>Microsoft Office: Word, Excel, Powerpoint, Outlook</li>
+            <li>Design Tool: Figma, Canva, Visily AI</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; Ofia Rahman Alif | <a href="mailto:ofiarahmanalif@gmail.com">Contact Me</a></p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section");
+
+        const observer = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    } else {
+                        entry.target.classList.remove("active");
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
+
+</body>
+</html>
